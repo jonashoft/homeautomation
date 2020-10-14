@@ -2,6 +2,10 @@ from flask import Flask, render_template, request
 import RPi.GPIO as GPIO
 import time
 
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(31, GPIO.OUT)
+GPIO.setup(37, GPIO.OUT)
+
 app = Flask(__name__)
 
 @app.route("/", methods=['GET', 'POST'])
