@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import RPi.GPIO as GPIO
 import time
 
@@ -12,17 +12,19 @@ app = Flask(__name__)
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    if request.method == 'POST':
-        if request.form.get('Turn On') == 'Turn On':
-            turnOnLights()
-        
-        elif request.form.get('Turn Off') == 'Turn Off':
-            turnOffLights()
-            
+    if request.method == 'GET':
         return render_template('index.html'), 200
-    
-    elif request.method == 'GET':
-        return render_template('index.html'), 200
+
+@app.route('/background_process')
+def background_process():
+    state = request.args.get('state', 0, type=str)
+    print(state)
+    if state == 'On':
+        turnOnLights()
+        return jsonify(result='Turned on')
+    elif state == 'Off':
+        turnOffLights()
+        return jsonify(result='Turned off')
 
 def turnOnLights():
     GPIO.output(37, 1)
