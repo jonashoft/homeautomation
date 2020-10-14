@@ -18,9 +18,11 @@ def home():
         
         elif request.form.get('Turn Off') == 'Turn Off':
             turnOffLights()
+            
+        return render_template('index.html'), 200
     
     elif request.method == 'GET':
-        return render_template('index.html')
+        return render_template('index.html'), 200
 
 def turnOnLights():
     GPIO.output(37, 1)
