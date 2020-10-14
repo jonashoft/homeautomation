@@ -6,6 +6,8 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(31, GPIO.OUT)
 GPIO.setup(37, GPIO.OUT)
 
+# Time between min and max = 4 seconds
+
 app = Flask(__name__)
 
 @app.route("/", methods=['GET', 'POST'])
@@ -13,11 +15,9 @@ def home():
     if request.method == 'POST':
         if request.form.get('Turn On') == 'Turn On':
             turnOnLights()
-            return render_template('index.html'), 200
         
         elif request.form.get('Turn Off') == 'Turn Off':
             turnOffLights()
-            return render_template('index.html'), 200
     
     elif request.method == 'GET':
         return render_template('index.html')
