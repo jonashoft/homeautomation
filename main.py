@@ -12,19 +12,17 @@ app = Flask(__name__)
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    if request.method == 'GET':
-        return render_template('index.html'), 200
+    if request.method == 'POST':
+        if request.form.get('Turn on Lights')=='Turn on Lights':
+            turnOnLights()
+            return render_template('index.html'), 200
+        
+        elif request.form.get("Read Button")=="Read Button":
+            turnOffLights()
+            return render_template('index.html'), 200
 
-@app.route('/background_process')
-def background_process():
-    state = request.args.get('state', 0, type=str)
-    print(state)
-    if state == 'On':
-        turnOnLights()
-        return jsonify(result='Turned on')
-    elif state == 'Off':
-        turnOffLights()
-        return jsonify(result='Turned off')
+    elif request.method == 'GET':
+        return render_template('index.html'), 200
 
 def turnOnLights():
     GPIO.output(37, 1)
