@@ -1,39 +1,22 @@
 <!DOCTYPE html>
+<html>
     <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script type=text/javascript>
-            $(function() {
-            $('a#TurnOn').bind('click', function() {
-                $.getJSON('/background_process', {
-                state: 'On',
-                }, function(data) {
-                $("#result").text(data.result);
-                });
-                return false;
-            });
-            });
-            $(function() {
-            $('a#TurnOff').bind('click', function() {
-                $.getJSON('/background_process', {
-                state: 'Off',
-                }, function(data) {
-                $("#result").text(data.result);
-                });
-                return false;
-            });
-            });
-        </script>
+        <title>Homeautomation</title>
     </head>
+    <body>    
 
-    <body>
-        <div class='container'>
         <h3>Light controls</h3>
-            <form>
-                <a href=# id=TurnOn><button class='btn btn-default'>Turn On</button></a>
-                <a href=# id=TurnOff><button class='btn btn-default'>Turn Off</button></a>
+        <div>
+            <form method="post" action="/">
+                <input type="submit" value="Turn on Lights" name="Turn on Lights"/>
+                <input type="submit" value="Turn off Lights" name="Turn off Lights"/>
+                <input type="text" name="Dimmer Value" placeholder={{ dimm_value }}>
+                <input type ="submit" value = "Dimm" name="Dimm"/><br>
+                <input type="submit" value="25" name="25"/>
+                <input type="submit" value="50" name="50"/>
+                <input type="submit" value="75" name="75"/>
+                <input type="submit" value="100" name="100"/>
             </form>
-            </form>
-        <p id=result></p>
         </div>
     </body>
 </html>
