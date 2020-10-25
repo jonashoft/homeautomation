@@ -62,9 +62,9 @@ def background_process():
 
 @app.route('/dimm', methods = ['POST'])
 def background_dimm():
-    username = request.form['username']
-    dimm(username)
-    return jsonify(username=username)
+    state = request.args.get('value', 0, type=int)
+    dimm(state)
+    return 200
 
 def turnOnLights(delay=0.1):
     GPIO.output(37, 1)
