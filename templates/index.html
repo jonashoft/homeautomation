@@ -9,14 +9,17 @@
         <h3>Light controls</h3>
         <div>
             <form method="post" action="/">
+                <label class="switch">
+                    <input type="checkbox" checked value="Turn on Lights" name="Turn on Lights">
+                    <span class="slider round"></span>
                 <input type="submit" value="Turn on Lights" name="Turn on Lights"/>
-                <input type="submit" value="Turn off Lights" name="Turn off Lights"/>
-                <input type="text" name="Dimmer Value" placeholder={{ dimm_value }}>
-                <input type ="submit" value = "Dimm" name="Dimm"/><br>
+                <input type="submit" value="Turn off Lights" name="Turn off Lights"/><br>
                 <input type="submit" value="25" name="25"/>
                 <input type="submit" value="50" name="50"/>
                 <input type="submit" value="75" name="75"/>
                 <input type="submit" value="100" name="100"/>
+                <input type="text" name="Dimmer Value" placeholder={{ dimm_value }}>
+                <input type ="submit" value = "Dimm" name="Dimm"/>
             </form>
         </div>
     </body>
