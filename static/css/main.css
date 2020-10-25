@@ -1,3 +1,7 @@
 input[type="text"] {
-    width: 50px;
+    width: 5px;
+}
+
+head {
+    font-family: Arial, Helvetica, sans-serif;
 }
