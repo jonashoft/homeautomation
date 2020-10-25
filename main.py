@@ -17,22 +17,22 @@ def home():
     if request.method == 'GET':
         return render_template('index.html'), 200
 
-@app.route('/background_process')
+@app.route('/background_process', methods=['GET', 'POST'])
 def background_process():
     state = request.args.get('state', 0, type=str)
     print(state)
     if state == 'On':
         turnOnLights()
-        return 200
+        return jsonify(result='Turned on')
     elif state == 'Off':
         turnOffLights()
-        return 200
+        return jsonify(result='Turned on')
 
-@app.route('/dimm')
+@app.route('/dimm', methods=['GET', 'POST'])
 def background_dimm():
     state = request.args.get('value', 0, type=int)
     dimm(state)
-    return 200
+    return jsonify(result='Dimmed')
 
 def turnOnLights(delay=0.1):
     GPIO.output(37, 1)
