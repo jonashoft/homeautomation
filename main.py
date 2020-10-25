@@ -49,7 +49,7 @@ def home():
     elif request.method == 'GET':
         return render_template('index.html', dimm_value=DIMM_VALUE), 200
 
-@app.route('/background_process', methods = ['POST'])
+@app.route('/background_process')
 def background_process():
     state = request.args.get('state', 0, type=str)
     print(state)
@@ -60,7 +60,7 @@ def background_process():
         turnOffLights()
         return jsonify(result='Turned off')
 
-@app.route('/dimm', methods = ['POST'])
+@app.route('/dimm')
 def background_dimm():
     state = request.args.get('value', 0, type=int)
     dimm(state)
