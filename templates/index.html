@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <acript src="./templates/scripts/script.js" />
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
         <title>Homeautomation</title>
     </head>
@@ -19,6 +20,14 @@
                 <input type ="submit" value = "Dimm" name="Dimm"/>
             </form>
         </div>
+        <div class='container'>
+            <h3>Light controls</h3>
+                <form>
+                    <a href=# id=TurnOn><button class='btn btn-default'>Turn On</button></a>
+                    <a href=# id=TurnOff><button class='btn btn-default'>Turn Off</button></a>
+                </form>
+                </form>
+            <p id=result></p>
+            </div>
     </body>
 </html>
-
