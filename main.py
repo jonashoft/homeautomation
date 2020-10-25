@@ -63,7 +63,7 @@ def background_process():
 @app.route('/dimm')
 def backgroundDimm():
     username = request.form['username']
-    dimm()
+    dimm(username)
 
 def turnOnLights(delay=0.1):
     GPIO.output(37, 1)
