@@ -43,31 +43,22 @@
             });
         </script>
     </head>
-    <body>    
-
-        <h3>Light controls</h3>
+    <body> 
         <div>
-            <form method="post" action="/">
-                <input type="submit" value="Turn on Lights" name="Turn on Lights"/>
-                <input type="submit" value="Turn off Lights" name="Turn off Lights"/><br>
-                <input type="submit" value="25" name="25"/>
-                <input type="submit" value="50" name="50"/>
-                <input type="submit" value="75" name="75"/>
-                <input type="submit" value="100" name="100"/>
+            <h3>Light controls</h3>
+            <form>
+                <a href=# id=TurnOn><button>Turn On</button></a>
+                <a href=# id=TurnOff><button>Turn Off</button></a><br>
+            </form>
+            <h2>Dimmer controls</h2>
+            <form>
+                <a href=# id=25><button>25</button></a>
+                <a href=# id=50><button>50</button></a>
+                <a href=# id=75><button>75</button></a>
+                <a href=# id=100><button>100</button></a><br>
                 <input type="text" name="DimmerValue" placeholder={{ dimm_value }}>
                 <input type ="submit" value = "Dimm" name="Dimm"/>
             </form>
-        </div>
-        <div>
-            <h3>Light controls</h3>
-                <form>
-                    <a href=# id=TurnOn><button>Turn On</button></a>
-                    <a href=# id=TurnOff><button>Turn Off</button></a>
-                    <a href=# id=25><button>25</button></a>
-                    <a href=# id=50><button>50</button></a>
-                    <a href=# id=75><button>75</button></a>
-                    <a href=# id=100><button>100</button></a>
-                </form>
         </div>
         <div>
             <p id="response"></p>
