@@ -16,7 +16,7 @@ app = Flask(__name__)
 def home():
     global DIMM_VALUE
     if request.method == 'POST':
-        if not request.form.getlist('Turn on Lights') == 'Turn on Lights':
+        if request.form.get('Turn on Lights') == 'Turn on Lights':
             turnOnLights()
             return render_template('index.html', dimm_value=DIMM_VALUE), 200
         
