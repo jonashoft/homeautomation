@@ -25,7 +25,7 @@ def home():
             return render_template('index.html', dimm_value=DIMM_VALUE), 200
         
         elif request.form.get("Dimm") == "Dimm":
-            dimm_value = request.form["Dimmer Value"]
+            dimm_value = request.form["DimmerValue"]
             dimm(int(dimm_value))
             print('dimmed lights: ', int(dimm_value))
             return render_template('index.html', dimm_value=DIMM_VALUE), 200
@@ -59,6 +59,11 @@ def background_process():
     elif state == 'Off':
         turnOffLights()
         return jsonify(result='Turned off')
+
+@app.route('/dimm')
+def backgroundDimm():
+    username = request.form['username']
+    dimm()
 
 def turnOnLights(delay=0.1):
     GPIO.output(37, 1)
