@@ -8,23 +8,13 @@
         <script type=text/javascript>
             $(function() {
                 $('a#TurnOn').bind('click', function() {
-                    $.getJSON('/background_process', {
-                        state: 'On',
-                        },
-                            function(data) {
-                            //do nothing
-                        });
+                    $.getJSON('/background_process', { state: 'On'});
                     return false;
                 });
             });
             $(function() {
                 $('a#TurnOff').bind('click', function() {
-                    $.getJSON('/background_process', {
-                        state: 'Off',
-                        },
-                            function(data) {
-                            //do nothing
-                        });
+                    $.getJSON('/background_process', { state: 'Off'});
                     return false;
                 });
             });
