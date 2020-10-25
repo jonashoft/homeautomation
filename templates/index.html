@@ -17,21 +17,6 @@
                     return false;
                 });
             });
-            $(document).ready(function() {
-                $('form').on('submit', function(event) {       
-                    $.ajax({
-                        data : {
-                            DimmerValue : $("#DimmerValue").val(),            
-                                },
-                            type : 'POST',
-                            url : '/background_process''
-                    })           
-                    .done(function(data) {                 
-                        $('#response').text(data['response']).show();        
-                    });
-                    event.preventDefault();
-                });     
-            });
         </script>
     </head>
     <body>    
@@ -56,6 +41,8 @@
                     <a href=# id=TurnOff><button>Turn Off</button></a>
                 </form>
         </div>
-        <p id="response"></p>
+        <div>
+            <p id="response"></p>
+        </div> 
     </body>
 </html>
