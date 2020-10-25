@@ -49,7 +49,7 @@ def home():
     elif request.method == 'GET':
         return render_template('index.html', dimm_value=DIMM_VALUE), 200
 
-@app.route('/background_process')
+@app.route('/background_process', method='POST')
 def background_process():
     state = request.args.get('state', 0, type=str)
     print(state)
@@ -59,6 +59,12 @@ def background_process():
     elif state == 'Off':
         turnOffLights()
         return jsonify(result='Turned off')
+
+@app.route('/dimm', method='POST')
+def background_dimm():
+    username = request.form['username']
+    dimm(username)
+    return jsonify(username=username)
 
 def turnOnLights(delay=0.1):
     GPIO.output(37, 1)
