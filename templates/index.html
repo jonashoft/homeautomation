@@ -4,6 +4,31 @@
         <acript src="./templates/scripts/script.js" />
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
         <title>Homeautomation</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type=text/javascript>
+            $(function() {
+                $('a#TurnOn').bind('click', function() {
+                    $.getJSON('/background_process', {
+                        state: 'On',
+                        },
+                            function(data) {
+                            //do nothing
+                        });
+                    return false;
+                });
+            });
+            $(function() {
+                $('a#TurnOff').bind('click', function() {
+                    $.getJSON('/background_process', {
+                        state: 'Off',
+                        },
+                            function(data) {
+                            //do nothing
+                        });
+                    return false;
+                });
+            });
+        </script>
     </head>
     <body>    
 
