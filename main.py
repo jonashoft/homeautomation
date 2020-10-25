@@ -14,40 +14,8 @@ app = Flask(__name__)
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    global DIMM_VALUE
-    if request.method == 'POST':
-        if request.form.get('Turn on Lights') == 'Turn on Lights':
-            turnOnLights()
-            return render_template('index.html', dimm_value=DIMM_VALUE), 200
-        
-        elif request.form.get("Turn off Lights") == "Turn off Lights":
-            turnOffLights()
-            return render_template('index.html', dimm_value=DIMM_VALUE), 200
-        
-        elif request.form.get("Dimm") == "Dimm":
-            dimm_value = request.form["DimmerValue"]
-            dimm(int(dimm_value))
-            print('dimmed lights: ', int(dimm_value))
-            return render_template('index.html', dimm_value=DIMM_VALUE), 200
-
-        elif request.form.get("25") == "25":
-            dimm(25)
-            return render_template('index.html', dimm_value=DIMM_VALUE), 200
-
-        elif request.form.get("50") == "50":
-            dimm(50)
-            return render_template('index.html', dimm_value=DIMM_VALUE), 200
-        
-        elif request.form.get("75") == "75":
-            dimm(75)
-            return render_template('index.html', dimm_value=DIMM_VALUE), 200
-        
-        elif request.form.get("100") == "100":
-            dimm(100)
-            return render_template('index.html', dimm_value=DIMM_VALUE), 200
-
-    elif request.method == 'GET':
-        return render_template('index.html', dimm_value=DIMM_VALUE), 200
+    if request.method == 'GET':
+        return render_template('index.html'), 200
 
 @app.route('/background_process')
 def background_process():
@@ -55,10 +23,10 @@ def background_process():
     print(state)
     if state == 'On':
         turnOnLights()
-        return jsonify(result='Turned on')
+        return 200
     elif state == 'Off':
         turnOffLights()
-        return jsonify(result='Turned off')
+        return 200
 
 @app.route('/dimm')
 def background_dimm():
