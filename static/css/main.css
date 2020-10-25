@@ -1,7 +1,12 @@
 input[type="text"] {
-    width: 10px;
+    width: 18px;
 }
 
 h3 {
     font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    padding: 70px 0;
+    text-align: center;
 }
