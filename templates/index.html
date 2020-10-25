@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <acript src="./templates/scripts/script.js" />
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
         <title>Homeautomation</title>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -18,6 +17,21 @@
                     return false;
                 });
             });
+            $(document).ready(function() {
+                $('form').on('submit', function(event) {       
+                    $.ajax({
+                        data : {
+                            DimmerValue : $("#DimmerValue").val(),            
+                                },
+                            type : 'POST',
+                            url : '/background_process''
+                    })           
+                    .done(function(data) {                 
+                        $('#response').text(data['response']).show();        
+                    });
+                    event.preventDefault();
+                });     
+            });
         </script>
     </head>
     <body>    
@@ -31,7 +45,7 @@
                 <input type="submit" value="50" name="50"/>
                 <input type="submit" value="75" name="75"/>
                 <input type="submit" value="100" name="100"/>
-                <input type="text" name="Dimmer Value" placeholder={{ dimm_value }}>
+                <input type="text" name="DimmerValue" placeholder={{ dimm_value }}>
                 <input type ="submit" value = "Dimm" name="Dimm"/>
             </form>
         </div>
@@ -41,8 +55,7 @@
                     <a href=# id=TurnOn><button>Turn On</button></a>
                     <a href=# id=TurnOff><button>Turn Off</button></a>
                 </form>
-                </form>
-            <p id=result></p>
-            </div>
+        </div>
+        <p id="response"></p>
     </body>
 </html>
