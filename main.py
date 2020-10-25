@@ -49,6 +49,17 @@ def home():
     elif request.method == 'GET':
         return render_template('index.html', dimm_value=DIMM_VALUE), 200
 
+@app.route('/background_process')
+def background_process():
+    state = request.args.get('state', 0, type=str)
+    print(state)
+    if state == 'On':
+        turnOnLights()
+        return jsonify(result='Turned on')
+    elif state == 'Off':
+        turnOffLights()
+        return jsonify(result='Turned off')
+
 def turnOnLights(delay=0.1):
     GPIO.output(37, 1)
     print('turned on')
