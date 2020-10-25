@@ -1,7 +1,7 @@
 input[type="text"] {
-    width: 5px;
+    width: 10px;
 }
 
-head {
+h3 {
     font-family: Arial, Helvetica, sans-serif;
 }
