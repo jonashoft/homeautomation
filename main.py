@@ -60,6 +60,9 @@ def dimm(dimm_value):
         turnOnLights(dimm)
         DIMM_VALUE = dimm_value
 
+    if dimm_value == 100:
+        turnOnLights(4)
+
 if __name__ == '__main__':
     turnOffLights(4)
     turnOnLights(2)
