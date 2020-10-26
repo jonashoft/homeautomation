@@ -48,20 +48,24 @@ def turnOffLights(delay=0.1):
 
 def dimm(dimm_value):
     global DIMM_VALUE
+    print('current: ', DIMM_VALUE, 'setting: ', dimm_value )
     if dimm_value < DIMM_VALUE:
         dimm = 4 / (100 / (DIMM_VALUE - dimm_value))
         print('downto: ', dimm)
         turnOffLights(dimm)
         DIMM_VALUE = dimm_value
 
-    elif dimm_value > DIMM_VALUE:
+    elif dimm_value > DIMM_VALUE and not dimm_value == 100:
         dimm = 4 / (100 / (dimm_value - DIMM_VALUE))
         print('upto: ', dimm)
         turnOnLights(dimm)
         DIMM_VALUE = dimm_value
 
-    if dimm_value == 100:
+    elif dimm_value == 100:
+        dimm = 4 / (100 / (dimm_value - DIMM_VALUE))
+        print('upto: max')
         turnOnLights(4)
+        DIMM_VALUE = 100
 
 if __name__ == '__main__':
     turnOffLights(4)
