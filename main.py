@@ -50,17 +50,17 @@ def dimm(dimm_value):
     global DIMM_VALUE
     
     if dimm_value < DIMM_VALUE:
-        dimm = 4 / (100 / (DIMM_VALUE - dimm_value))
+        dimm = 4.5 / (100 / (DIMM_VALUE - dimm_value))
         turnOffLights(dimm)
         DIMM_VALUE = dimm_value
 
     elif dimm_value > DIMM_VALUE and not dimm_value == 100:
-        dimm = 4 / (100 / (dimm_value - DIMM_VALUE))
+        dimm = 4.5 / (100 / (dimm_value - DIMM_VALUE))
         turnOnLights(dimm)
         DIMM_VALUE = dimm_value
 
     elif dimm_value == 100:
-        dimm = 4 / (100 / (dimm_value - DIMM_VALUE))
+        dimm = 4.5 / (100 / (dimm_value - DIMM_VALUE))
         turnOnLights(4)
         DIMM_VALUE = 100
 
