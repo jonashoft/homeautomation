@@ -10,8 +10,6 @@ GPIO.setup(37, GPIO.OUT)
 # Time between min and max = 4 seconds
 DIMM_VALUE = 50
 
-textDB = open("textDB.txt", "a")
-
 app = Flask(__name__)
 
 @app.route("/", methods=['GET', 'POST'])
@@ -50,22 +48,19 @@ def turnOffLights(delay=0.1):
 
 def dimm(dimm_value):
     global DIMM_VALUE
-    textDB.write('current: ', DIMM_VALUE, 'setting: ', dimm_value )
+    
     if dimm_value < DIMM_VALUE:
         dimm = 4 / (100 / (DIMM_VALUE - dimm_value))
-        textDB.write('downto: ', dimm)
         turnOffLights(dimm)
         DIMM_VALUE = dimm_value
 
     elif dimm_value > DIMM_VALUE and not dimm_value == 100:
         dimm = 4 / (100 / (dimm_value - DIMM_VALUE))
-        textDB.write('upto: ', dimm)
         turnOnLights(dimm)
         DIMM_VALUE = dimm_value
 
     elif dimm_value == 100:
         dimm = 4 / (100 / (dimm_value - DIMM_VALUE))
-        textDB.write('downto: max')
         turnOnLights(4)
         DIMM_VALUE = 100
 
