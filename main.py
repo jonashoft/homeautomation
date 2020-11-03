@@ -24,10 +24,10 @@ def light_chain():
     state = request.args.get('state', 0, type=str)
     print(state)
     if state == 'On':
-        GPIO.output(13, 0)
+        GPIO.output(11, 1)
         return jsonify(result='Turned on')
     elif state == 'Off':
-        GPIO.output(13, 1)
+        GPIO.output(11, 0)
         return jsonify(result='Turned off')
 
 @app.route('/desk_lamp', methods=['GET', 'POST'])
@@ -35,10 +35,10 @@ def desk_lamp():
     state = request.args.get('state', 0, type=str)
     print(state)
     if state == 'On':
-        GPIO.output(11, 0)
+        GPIO.output(13, 1)
         return jsonify(result='Turned on')
     elif state == 'Off':
-        GPIO.output(11, 1)
+        GPIO.output(13, 0)
         return jsonify(result='Turned off')
 
 @app.route('/background_process', methods=['GET', 'POST'])
@@ -89,8 +89,8 @@ def dimm(dimm_value):
         DIMM_VALUE = 100
 
 if __name__ == '__main__':
-    GPIO.output(11, 0)
-    GPIO.output(13, 0)
+    GPIO.output(11, 1)
+    GPIO.output(13, 1)
     turnOffLights(4)
     turnOnLights(2)
     app.run(debug=True, port=80, host='0.0.0.0')
