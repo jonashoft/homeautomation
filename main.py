@@ -31,7 +31,7 @@ def light_chain():
         return jsonify(result='Turned off')
 
 @app.route('/desk_lamp', methods=['GET', 'POST'])
-def light_chain():
+def desk_lamp():
     state = request.args.get('state', 0, type=str)
     print(state)
     if state == 'On':
