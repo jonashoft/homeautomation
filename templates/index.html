@@ -41,6 +41,30 @@
                     return false;
                 });
             });
+            $(function() {
+                $('a#TurnOnChain').bind('click', function() {
+                    $.getJSON('/light_chain', { state: 'On'});
+                    return false;
+                });
+            });
+            $(function() {
+                $('a#TurnOffChain').bind('click', function() {
+                    $.getJSON('/light_chain', { state: 'Off'});
+                    return false;
+                });
+            });
+            $(function() {
+                $('a#TurnOnLamp').bind('click', function() {
+                    $.getJSON('/desk_lamp', { state: 'On'});
+                    return false;
+                });
+            });
+            $(function() {
+                $('a#TurnOffLamp').bind('click', function() {
+                    $.getJSON('/desk_lamp', { state: 'Off'});
+                    return false;
+                });
+            });
         </script>
     </head>
     <body> 
@@ -58,6 +82,16 @@
                 <a href=# id=100><button>100</button></a><br><br>
                 <input type="text" name="DimmerValue" placeholder={{ dimm_value }}>
                 <input type ="submit" value = "Dimm" name="Dimm"/>
+            </form>
+            <h3>Desk lamp control</h3>
+            <form>
+                <a href=# id=TurnOnChain><button>Turn On</button></a>
+                <a href=# id=TurnOffChain><button>Turn Off</button></a><br>
+            </form>
+            <h3>Christmas light control</h3>
+            <form>
+                <a href=# id=TurnOnLamp><button>Turn On</button></a>
+                <a href=# id=TurnOffLamp><button>Turn Off</button></a><br>
             </form>
         </div>
         <div>
