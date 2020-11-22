@@ -43,57 +43,85 @@
             });
             $(function() {
                 $('a#TurnOnChain').bind('click', function() {
-                    $.getJSON('/light_chain', { state: 'On'});
+                    $.getJSON('/relay', { state: 'On', light_source: 'chain'});
                     return false;
                 });
             });
             $(function() {
                 $('a#TurnOffChain').bind('click', function() {
-                    $.getJSON('/light_chain', { state: 'Off'});
+                    $.getJSON('/relay', { state: 'Off', light_source: 'chain'});
                     return false;
                 });
             });
             $(function() {
                 $('a#TurnOnLamp').bind('click', function() {
-                    $.getJSON('/desk_lamp', { state: 'On'});
+                    $.getJSON('/relay', { state: 'On', light_source: 'desk'});
                     return false;
                 });
             });
             $(function() {
                 $('a#TurnOffLamp').bind('click', function() {
-                    $.getJSON('/desk_lamp', { state: 'Off'});
+                    $.getJSON('/relay', { state: 'Off', light_source: 'desk'});
                     return false;
                 });
             });
         </script>
     </head>
     <body> 
-        <div>
-            <h3>Light controls</h3>
-            <form>
-                <a href=# id=TurnOn><button>Turn On</button></a>
-                <a href=# id=TurnOff><button>Turn Off</button></a><br>
-            </form>
-            <h3>Dimmer controls</h2>
-            <form>
-                <a href=# id=25><button>25</button></a>
-                <a href=# id=50><button>50</button></a>
-                <a href=# id=75><button>75</button></a>
-                <a href=# id=100><button>100</button></a><br><br>
-                <input type="text" name="DimmerValue" placeholder={{ dimm_value }}>
-                <input type ="submit" value = "Dimm" name="Dimm"/>
-            </form>
-            <h3>Desk lamp control</h3>
-            <form>
-                <a href=# id=TurnOnChain><button>Turn On</button></a>
-                <a href=# id=TurnOffChain><button>Turn Off</button></a><br>
-            </form>
-            <h3>Christmas light control</h3>
-            <form>
-                <a href=# id=TurnOnLamp><button>Turn On</button></a>
-                <a href=# id=TurnOffLamp><button>Turn Off</button></a><br>
-            </form>
-        </div>
+        {% if request.MOBILE %}
+            <div class="mobile">
+                <p><b>Loftslamper</b></p>
+                <form>
+                    <a href=# id=TurnOn><button>Tænd</button></a>
+                    <a href=# id=TurnOff><button>Sluk</button></a>
+                </form>
+                <p><b>Loft dimmer</b></p>
+                <form>
+                    <a href=# id=25><button>25</button></a>
+                    <a href=# id=50><button>50</button></a>
+                    <a href=# id=75><button>75</button></a>
+                    <a href=# id=100><button>100</button></a>
+                </form>
+                <p><b>Skrivebords lampe</b></p>
+                <form>
+                    <a href=# id=TurnOnLamp><button>Tænd</button></a>
+                    <a href=# id=TurnOffLamp><button>Sluk</button></a>
+                </form>
+                <p><b>Lys kæde</b></p>
+                <form>
+                    <a href=# id=TurnOnChain><button>Tænd</button></a>
+                    <a href=# id=TurnOffChain><button>Sluk</button></a>
+                </form>
+            </div>
+        {% else %}
+            <div class="pc">
+                <p><b>Loftslamper</b></p>
+                <form>
+                    <a href=# id=TurnOn><button class="pc_button">Tænd</button></a>
+                    <a href=# id=TurnOff><button>Sluk</button></a><br>
+                </form>
+                <p><b>Loft dimmer</b></p>
+                <form>
+                    <a href=# id=25><button>25</button></a>
+                    <a href=# id=50><button>50</button></a>
+                    <a href=# id=75><button>75</button></a>
+                    <a href=# id=100><button>100</button></a><br><br>
+                    <input type="text" name="DimmerValue" placeholder={{ dimm_value }}>
+                    <input type ="submit" value = "Dimm" name="Dimm"/>
+                </form>
+                <p><b>Skrivebords lampe</b></p>
+                <form>
+                    <a href=# id=TurnOnLamp><button>Tænd</button></a>
+                    <a href=# id=TurnOffLamp><button>Sluk</button></a><br>
+                </form>
+                <p><b>Lys kæde</b></p>
+                <form>
+                    <a href=# id=TurnOnChain><button>Tænd</button></a>
+                    <a href=# id=TurnOffChain><button>Sluk</button></a><br>
+                </form>
+            </div>
+        {% endif %}
+                
         <div>
             <p id="response"></p>
         </div> 
