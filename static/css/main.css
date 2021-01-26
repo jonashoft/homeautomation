@@ -1,0 +1,20 @@
+input[type="text"] {
+    width: 18px;
+}
+
+body {
+    text-align: center;
+}
+
+.pc{
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 70px 0;
+  font-size: 20px;
+    
+}
+
+.mobile {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 35px;
+  zoom: 300%;
+}
