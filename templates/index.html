@@ -7,59 +7,41 @@
         <script type=text/javascript>
             $(function() {
                 $('a#TurnOn').bind('click', function() {
-                    $.getJSON('/background_process', { state: 'On'});
+                    $.getJSON('/ikea_lights', { state: 'On'});
                     return false;
                 });
-            });
-            $(function() {
                 $('a#TurnOff').bind('click', function() {
-                    $.getJSON('/background_process', { state: 'Off'});
+                    $.getJSON('/ikea_lights', { state: 'Off'});
                     return false;
                 });
-            });
-            $(function() {
                 $('a#25').bind('click', function() {
-                    $.getJSON('/dimm', { value: 25});
+                    $.getJSON('/dimmer', { value: 25});
                     return false;
                 });
-            });
-            $(function() {
                 $('a#50').bind('click', function() {
-                    $.getJSON('/dimm', { value: 50});
+                    $.getJSON('/dimmer', { value: 50});
                     return false;
                 });
-            });
-            $(function() {
                 $('a#75').bind('click', function() {
-                    $.getJSON('/dimm', { value: 75});
+                    $.getJSON('/dimmer', { value: 75});
                     return false;
                 });
-            });
-            $(function() {
                 $('a#100').bind('click', function() {
-                    $.getJSON('/dimm', { value: 100});
+                    $.getJSON('/dimmer', { value: 100});
                     return false;
                 });
-            });
-            $(function() {
                 $('a#TurnOnChain').bind('click', function() {
                     $.getJSON('/relay', { state: 'On', light_source: 'chain'});
                     return false;
                 });
-            });
-            $(function() {
                 $('a#TurnOffChain').bind('click', function() {
                     $.getJSON('/relay', { state: 'Off', light_source: 'chain'});
                     return false;
                 });
-            });
-            $(function() {
                 $('a#TurnOnLamp').bind('click', function() {
                     $.getJSON('/relay', { state: 'On', light_source: 'desk'});
                     return false;
                 });
-            });
-            $(function() {
                 $('a#TurnOffLamp').bind('click', function() {
                     $.getJSON('/relay', { state: 'Off', light_source: 'desk'});
                     return false;
@@ -97,7 +79,7 @@
             <div class="pc">
                 <p><b>Loftslamper</b></p>
                 <form>
-                    <a href=# id=TurnOn><button class="pc_button">Tænd</button></a>
+                    <a href=# id=TurnOn><button>Tænd</button></a>
                     <a href=# id=TurnOff><button>Sluk</button></a><br>
                 </form>
                 <p><b>Loft dimmer</b></p>
@@ -105,9 +87,7 @@
                     <a href=# id=25><button>25</button></a>
                     <a href=# id=50><button>50</button></a>
                     <a href=# id=75><button>75</button></a>
-                    <a href=# id=100><button>100</button></a><br><br>
-                    <input type="text" name="DimmerValue" placeholder={{ dimm_value }}>
-                    <input type ="submit" value = "Dimm" name="Dimm"/>
+                    <a href=# id=100><button>100</button></a>
                 </form>
                 <p><b>Skrivebords lampe</b></p>
                 <form>

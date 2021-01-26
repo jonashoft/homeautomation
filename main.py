@@ -2,77 +2,49 @@ from flask import Flask, render_template, request, jsonify
 from flask_mobility import Mobility
 import time
 import os
-import logging 
 
-import RPi.GPIO as GPIO
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(31, GPIO.OUT)
-GPIO.setup(37, GPIO.OUT)
-GPIO.setup(11, GPIO.OUT)
-GPIO.setup(13, GPIO.OUT)
+deployedRasp = False
 
+if os.uname()[0] == 'Linux':
+    deployedRasp = True
+    import RPi.GPIO as GPIO
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BOARD)
+    pins = [11, 13, 31, 37] # desklamp, chain light, ceiling light on/off
+    GPIO.setup(pins, GPIO.OUT)
 
 # Time between min and max = 4 seconds
 DIMM_VALUE = 50
 
-# Different states for the different lights
-CEILING_LIGHT = 'on'
-DESK_LAMP = 'on'
-CHRISTMAS_LIGHT = 'on'
-
 app = Flask(__name__)
 Mobility(app)
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/", methods=['GET'])
 def home():
-    if request.method == 'GET':
-        return render_template('index.html'), 200
+    return render_template('index.html'), 200
 
-@app.route('/relay', methods=['GET', 'POST'])
+@app.route('/relay', methods=['GET'])
 def relay_handler():
     state = request.args.get('state', type=str)
     lamp = request.args.get('light_source', type=str)
     light_state = {'On': 1, 'Off': 0}
     light_pin = {'desk': 11, 'chain': 13}
-    GPIO.output(light_pin[lamp], light_state[state])
-    return jsonify(result='Turned {} {}'.format(lamp, state))
+    if deployedRasp:
+        GPIO.output(light_pin[lamp], light_state[state])
+    return jsonify(result='Turned {} {}'.format(lamp, state)), 200
 
-@app.route('/background_process', methods=['GET', 'POST'])
-def background_process():
+@app.route('/ikea_lights', methods=['GET'])
+def ikea_lights_handler():
     state = request.args.get('state', type=str)
     a = Lights(state)
     print('Turned {} : {}'.format(state, a))
-    return jsonify(result='Turned {} : {}'.format(state, a))
+    return jsonify(result='Turned {} : {}'.format(state, a)), 200
 
-@app.route('/dimm', methods=['GET', 'POST'])
-def background_dimm():
+@app.route('/dimmer', methods=['GET'])
+def ikea_lights_dimmer():
     state = request.args.get('value', type=int)
     dimm(state)
-    return jsonify(result='Dimmed')
-
-@app.route('/on', methods=['GET'])
-def turn_on_all():
-    Lights('On')
-    GPIO.output(11, 1)
-    GPIO.output(13, 1)
-    return jsonify(result='Turned all on')
-
-@app.route('/off', methods=['GET'])
-def turn_off_all():
-    Lights('Off')
-    GPIO.output(11, 0)
-    GPIO.output(13, 0)
-    return jsonify(result='Turned all off')
-
-def Lights(state, delay=0.1):
-    global CEILING_LIGHT
-    CEILING_LIGHT = 'on'
-    light_pin = {'On': 37, 'Off': 31}
-    GPIO.output(light_pin[state], 1)
-    time.sleep(delay)
-    GPIO.output(light_pin[state], 0)
-    return True
+    return jsonify(result='Dimmed'), 200
 
 def dimm(dimm_value):
     global DIMM_VALUE
@@ -91,9 +63,19 @@ def dimm(dimm_value):
         Lights(state='On', delay=4)
         DIMM_VALUE = 100
 
+def Lights(state, delay=0.1): # Default delay represents a click on the button
+    light_pin = {'On': 37, 'Off': 31}
+    if deployedRasp:
+        GPIO.output(light_pin[state], 1)
+        time.sleep(delay)
+        GPIO.output(light_pin[state], 0)
+        return False
+    return True
+
 if __name__ == '__main__':
-    GPIO.output(11, 1)
-    GPIO.output(13, 1)
+    if deployedRasp:
+        GPIO.output(11, 1)
+        GPIO.output(13, 1)
     Lights(state='Off', delay=4)
     Lights(state='On', delay=2)
     app.run(debug=True, port=3000, host='0.0.0.0')
