@@ -56,14 +56,16 @@ def turn_on_all():
     Lights('On')
     GPIO.output(11, 1)
     GPIO.output(13, 1)
-    return jsonify(result='Turned all on')
-
+    @app.route('/on', methods=['GET'])
+def turn_on_all():
+    Lights('On')
+    GPIO.output(11, 1)
+    GPIO.o
 @app.route('/off', methods=['GET'])
 def turn_off_all():
     Lights('Off')
     GPIO.output(11, 0)
     GPIO.output(13, 0)
-    return jsonify(result='Turned all off')
 
 def Lights(state, delay=0.1):
     global CEILING_LIGHT
@@ -96,4 +98,4 @@ if __name__ == '__main__':
     GPIO.output(13, 1)
     Lights(state='Off', delay=4)
     Lights(state='On', delay=2)
-    app.run(debug=True, port=3000, host='0.0.0.0')
+    app.run(debug=True, port=80, host='0.0.0.0')
