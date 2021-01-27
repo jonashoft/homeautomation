@@ -1,49 +1,20 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
         <title>Homeautomation</title>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script type=text/javascript>
             $(function() {
-                $('a#TurnOn').bind('click', function() {
-                    $.getJSON('/ikea_lights', { state: 'On'});
+                $('a#ikea_lights').bind('click', function() {
+                    var data = $(this).data();
+                    $.getJSON('/ikea_lights', { state: data.state, value: data.value});
                     return false;
                 });
-                $('a#TurnOff').bind('click', function() {
-                    $.getJSON('/ikea_lights', { state: 'Off'});
-                    return false;
-                });
-                $('a#25').bind('click', function() {
-                    $.getJSON('/dimmer', { value: 25});
-                    return false;
-                });
-                $('a#50').bind('click', function() {
-                    $.getJSON('/dimmer', { value: 50});
-                    return false;
-                });
-                $('a#75').bind('click', function() {
-                    $.getJSON('/dimmer', { value: 75});
-                    return false;
-                });
-                $('a#100').bind('click', function() {
-                    $.getJSON('/dimmer', { value: 100});
-                    return false;
-                });
-                $('a#TurnOnChain').bind('click', function() {
-                    $.getJSON('/relay', { state: 'On', light_source: 'chain'});
-                    return false;
-                });
-                $('a#TurnOffChain').bind('click', function() {
-                    $.getJSON('/relay', { state: 'Off', light_source: 'chain'});
-                    return false;
-                });
-                $('a#TurnOnLamp').bind('click', function() {
-                    $.getJSON('/relay', { state: 'On', light_source: 'desk'});
-                    return false;
-                });
-                $('a#TurnOffLamp').bind('click', function() {
-                    $.getJSON('/relay', { state: 'Off', light_source: 'desk'});
+                $('a#relay').bind('click', function() {
+                    var data = $(this).data();
+                    $.getJSON('/relay', { state: data.state, light_source: data.dest});
                     return false;
                 });
             });
@@ -51,59 +22,32 @@
     </head>
     <body> 
         {% if request.MOBILE %}
-            <div class="mobile">
-                <p><b>Loftslamper</b></p>
-                <form>
-                    <a href=# id=TurnOn><button>Tænd</button></a>
-                    <a href=# id=TurnOff><button>Sluk</button></a>
-                </form>
-                <p><b>Loft dimmer</b></p>
-                <form>
-                    <a href=# id=25><button>25</button></a>
-                    <a href=# id=50><button>50</button></a>
-                    <a href=# id=75><button>75</button></a>
-                    <a href=# id=100><button>100</button></a>
-                </form>
-                <p><b>Skrivebords lampe</b></p>
-                <form>
-                    <a href=# id=TurnOnLamp><button>Tænd</button></a>
-                    <a href=# id=TurnOffLamp><button>Sluk</button></a>
-                </form>
-                <p><b>Lys kæde</b></p>
-                <form>
-                    <a href=# id=TurnOnChain><button>Tænd</button></a>
-                    <a href=# id=TurnOffChain><button>Sluk</button></a>
-                </form>
-            </div>
+        <div class="mobile">
         {% else %}
-            <div class="pc">
-                <p><b>Loftslamper</b></p>
-                <form>
-                    <a href=# id=TurnOn><button>Tænd</button></a>
-                    <a href=# id=TurnOff><button>Sluk</button></a><br>
-                </form>
-                <p><b>Loft dimmer</b></p>
-                <form>
-                    <a href=# id=25><button>25</button></a>
-                    <a href=# id=50><button>50</button></a>
-                    <a href=# id=75><button>75</button></a>
-                    <a href=# id=100><button>100</button></a>
-                </form>
-                <p><b>Skrivebords lampe</b></p>
-                <form>
-                    <a href=# id=TurnOnLamp><button>Tænd</button></a>
-                    <a href=# id=TurnOffLamp><button>Sluk</button></a><br>
-                </form>
-                <p><b>Lys kæde</b></p>
-                <form>
-                    <a href=# id=TurnOnChain><button>Tænd</button></a>
-                    <a href=# id=TurnOffChain><button>Sluk</button></a><br>
-                </form>
-            </div>
+        <div class="pc">
         {% endif %}
-                
-        <div>
-            <p id="response"></p>
-        </div> 
+            <p><b>Loftslamper</b></p>
+            <form>
+                <a href=# id=ikea_lights data-state='On'><button>Tænd</button></a>
+                <a href=# id=ikea_lights data-state='Off'><button>Sluk</button></a><br>
+            </form>
+            <p><b>Loft dimmer</b></p>
+            <form>
+                <a href=# id=ikea_lights data-value='25'><button>25</button></a>
+                <a href=# id=ikea_lights data-value='50'><button>50</button></a>
+                <a href=# id=ikea_lights data-value='75'><button>75</button></a>
+                <a href=# id=ikea_lights data-value='100'><button>100</button></a>
+            </form>
+            <p><b>Skrivebords lampe</b></p>
+            <form>
+                <a href=# id=relay data-dest="desk" data-state="On"><button>Tænd</button></a>
+                <a href=# id=relay data-dest="desk" data-state="Off"><button>Sluk</button></a><br>
+            </form>
+            <p><b>Lys kæde</b></p>
+            <form>
+                <a href=# id=relay data-dest="chain" data-state="On"><button>Tænd</button></a>
+                <a href=# id=relay data-dest="chain" data-state="On"><button>Sluk</button></a><br>
+            </form>
+        </div>
     </body>
 </html>

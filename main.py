@@ -36,19 +36,17 @@ def relay_handler():
 @app.route('/ikea_lights', methods=['GET'])
 def ikea_lights_handler():
     state = request.args.get('state', type=str)
-    a = Lights(state)
-    print('Turned {} : {}'.format(state, a))
-    return jsonify(result='Turned {} : {}'.format(state, a)), 200
-
-@app.route('/dimmer', methods=['GET'])
-def ikea_lights_dimmer():
-    state = request.args.get('value', type=int)
-    dimm(state)
-    return jsonify(result='Dimmed'), 200
+    dimmValue = request.args.get('value', type=str)
+    if state != None:
+        a = Lights(state)
+        print('Turned {} : {}'.format(state, a))
+    if dimmValue != None:
+        dimm(int(dimmValue))
+        print('Dimmed {}'.format(dimmValue))
+    return jsonify(result='Ok'), 200
 
 def dimm(dimm_value):
     global DIMM_VALUE
-    
     if dimm_value < DIMM_VALUE:
         dimm = 4.5 / (100 / (DIMM_VALUE - dimm_value))
         Lights(state='Off', delay=dimm)
