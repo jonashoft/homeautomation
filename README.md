@@ -2,7 +2,7 @@
 
 <img align="right" width="250" height="250" src="static/favicon.png">
 
-Hobby project for making smart-control in my apartment.
+Hobby project for making my aprtment smart-controlled.
 
 For now it can only control lights, but will be continued.
 
