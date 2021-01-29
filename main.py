@@ -19,9 +19,14 @@ DIMM_VALUE = 50
 app = Flask(__name__)
 Mobility(app)
 
-@app.route("/", methods=['GET'])
+@app.route('/', methods=['GET'])
 def home():
-    return render_template('index.html'), 200
+    if request.MOBILE:
+        print('mobile request')
+        return render_template('index_mobile.html'), 200
+    else:
+        print('other request')
+        return render_template('index.html'), 200
 
 @app.route('/relay', methods=['GET'])
 def relay_handler():
