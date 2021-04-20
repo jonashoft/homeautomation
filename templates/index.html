@@ -23,6 +23,11 @@
                 $('a#redirectLights').bind('click', function() {
                     location.href = "{{ url_for('home') }}";
                 });
+                $('a#disco').bind('click', function() {
+                    var data = $(this).data();
+                    $.getJSON('/disco');
+                    return false;
+                });
             });
         </script>
         <style>
@@ -79,6 +84,10 @@
                     <a href=# id=relay data-dest="chain" data-state="On"><button class="rpiButton">Tænd</button></a>
                     <a href=# id=relay data-dest="chain" data-state="Off"><button class="rpiButton">Sluk</button></a><br>
                 </form>
+                <p>Disco</p>
+                <form>
+                    <a href=# id=disco data-dest="chain" data-state="On"><button class="rpiButton">Tænd</button></a>
+                    </form>
             </div>
             <div class="emptySpace">
                 <p></p>

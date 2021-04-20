@@ -50,6 +50,14 @@ def ikea_lights_handler():
         print('Dimmed {}'.format(dimmValue))
     return jsonify(result='Ok'), 200
 
+@app.route('/disco', methods=['GET'])
+def disco():
+    for x in range(10):
+        GPIO.output(11, 0)
+        time.sleep(0.02)
+        GPIO.output(11,1)
+        time.sleep(0.02)
+
 def dimm(dimm_value):
     global DIMM_VALUE
     if dimm_value < DIMM_VALUE:
