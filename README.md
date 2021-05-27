@@ -1,6 +1,7 @@
 # homeautomation
 
-<img align="right" width="250" height="250" src="static/favicon.png">
+<img align="right" width="250" height="250" src="main_rpi_board/static/favicon.png">
+
 
 Hobby project for making my aprtment smart-controlled.
 

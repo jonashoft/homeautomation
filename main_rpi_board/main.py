@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from flask_mobility import Mobility
+from flask_cors import CORS
 import time
 import os
 
@@ -18,6 +19,7 @@ DIMM_VALUE = 50
 
 app = Flask(__name__)
 Mobility(app)
+CORS(app)
 
 @app.route('/', methods=['GET'])
 def home():
@@ -28,7 +30,7 @@ def home():
         print('other request')
         return render_template('index.html'), 200
 
-@app.route('/relay', methods=['GET'])
+@app.route('/relay', methods=['GET', 'POST'])
 def relay_handler():
     state = request.args.get('state', type=str)
     lamp = request.args.get('light_source', type=str)
