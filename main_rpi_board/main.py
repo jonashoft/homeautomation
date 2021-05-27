@@ -1,5 +1,4 @@
-from flask import Flask, render_template, request, jsonify
-from flask_mobility import Mobility
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import time
 import os
@@ -18,19 +17,13 @@ if os.uname()[0] == 'Linux':
 DIMM_VALUE = 50
 
 app = Flask(__name__)
-Mobility(app)
 CORS(app)
 
 @app.route('/', methods=['GET'])
 def home():
-    if request.MOBILE:
-        print('mobile request')
-        return render_template('index_mobile.html'), 200
-    else:
-        print('other request')
-        return render_template('index.html'), 200
+    return "use vue front-end to access endpoints", 200
 
-@app.route('/relay', methods=['GET', 'POST'])
+@app.route('/relay', methods=['GET'])
 def relay_handler():
     state = request.args.get('state', type=str)
     lamp = request.args.get('light_source', type=str)
@@ -38,7 +31,7 @@ def relay_handler():
     light_pin = {'desk': 11, 'chain': 13}
     if deployedRasp:
         GPIO.output(light_pin[lamp], light_state[state])
-    return jsonify(result='Turned {} {}'.format(lamp, state)), 200
+    return jsonify(result='Turned {lamp} {state}'), 200
 
 @app.route('/ikea_lights', methods=['GET'])
 def ikea_lights_handler():
@@ -46,11 +39,15 @@ def ikea_lights_handler():
     dimmValue = request.args.get('value', type=str)
     if state != None:
         a = Lights(state)
-        print('Turned {} : {}'.format(state, a))
+        result = 'Turned {} : {}'.format(state, a)
+        print(result)
+        return result, 200
     if dimmValue != None:
         dimm(int(dimmValue))
-        print('Dimmed {}'.format(dimmValue))
-    return jsonify(result='Ok'), 200
+        result = 'Dimmed {}'.format(dimmValue)
+        print(result)
+        return result, 200
+    return "missing parametre", 400
 
 def dimm(dimm_value):
     global DIMM_VALUE
