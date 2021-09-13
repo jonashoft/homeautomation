@@ -49,6 +49,14 @@ def ikea_lights_handler():
         return result, 200
     return "missing parametre", 400
 
+@app.route('/disco', methods=['GET'])
+def disco():
+    for x in range(10):
+        GPIO.output(11, 0)
+        time.sleep(0.02)
+        GPIO.output(11,1)
+        time.sleep(0.02)
+
 def dimm(dimm_value):
     global DIMM_VALUE
     if dimm_value < DIMM_VALUE:
