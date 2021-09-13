@@ -17,7 +17,7 @@ if os.uname()[0] == 'Linux':
 DIMM_VALUE = 50
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r'/*': {'origins': '*'}})
 
 @app.route('/', methods=['GET'])
 def home():
@@ -88,4 +88,4 @@ if __name__ == '__main__':
         GPIO.output(13, 1)
     Lights(state='Off', delay=4)
     Lights(state='On', delay=2)
-    app.run(debug=True, port=3000, host='0.0.0.0')
+    app.run(port=3000, host='0.0.0.0')
