@@ -34,7 +34,7 @@ export default {
       this.fetchAPICall("relay?state=" + String(state) + "&light_source=" + String(dest), "GET")
     },
     fetchAPICall : async function (route, method) {
-      let url = "http://localhost:3000/" + route
+      let url = "http://192.168.0.108:3000/" + route
       console.log(url);
       try {
         return await fetch(url, { method: method });
