@@ -8,9 +8,9 @@
       <button type = "button" v-on:click="ikea_lights(50)">50</button>
       <button type = "button" v-on:click="ikea_lights(75)">75</button>
       <button type = "button" v-on:click="ikea_lights(100)">100</button><br>
-      <p>Skrivebords lampe</p>
+      <!--<p>Skrivebords lampe</p>  - - - Temporarily disabled
       <button type = "button" v-on:click="relay('desk', 'On')">Tænd</button>
-      <button type = "button" v-on:click="relay('desk', 'Off')">Sluk</button><br>
+      <button type = "button" v-on:click="relay('desk', 'Off')">Sluk</button><br>-->
       <p>Lys kæde</p>
       <button type = "button" v-on:click="relay('chain', 'On')">Tænd</button>
       <button type = "button" v-on:click="relay('chain', 'Off')">Sluk</button><br>
