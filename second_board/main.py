@@ -19,7 +19,7 @@ def relay_handler():
     state = request.args.get('state', type=str)
     lamp = request.args.get('light_source', type=str)
     light_state = {'On': 1, 'Off': 0}
-    light_pin = {'desk': 11, 'chain': 13}
+    light_pin = {'desk': 16, 'chain': 18}
     GPIO.output(light_pin[lamp], light_state[state])
     return jsonify(result='Turned {lamp} {state}'), 200
 
