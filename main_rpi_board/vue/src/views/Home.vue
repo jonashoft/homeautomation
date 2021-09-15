@@ -24,17 +24,17 @@ export default {
   methods : {
     ikea_lights : function(value){
       if(typeof(value) == "string"){
-        this.fetchAPICall("ikea_lights?state=" + value, "GET");
+        this.fetchAPICall(0, "ikea_lights?state=" + value, "GET");
       }
       else if(typeof(value) == "number"){
-        this.fetchAPICall("ikea_lights?value=" + value, "GET");
+        this.fetchAPICall(0, "ikea_lights?value=" + value, "GET");
       }
     },
     relay : function (dest, state){ 
-      this.fetchAPICall("relay?state=" + String(state) + "&light_source=" + String(dest), "GET")
+      this.fetchAPICall(1, "relay?state=" + String(state) + "&light_source=" + String(dest), "GET")
     },
-    fetchAPICall : async function (route, method) {
-      let url = "http://192.168.0.108:3000/" + route
+    fetchAPICall : async function (board, route, method) {
+      let url = (board == 1 ? "http://192.168.0.141:3000/" + route : "http://192.168.0.108:3000/" + route)
       console.log(url);
       try {
         return await fetch(url, { method: method });
