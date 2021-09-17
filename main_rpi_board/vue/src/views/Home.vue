@@ -22,7 +22,7 @@
       <button type = "button" class="buttonMobile" v-on:click="ikea_lights('Off')">Sluk</button><br>
       <p style="font-size : 25px;">Dæmpning</p>
       <button type = "button" class="buttonMobile" v-on:click="ikea_lights(25)">25</button>
-      <button type = "button" class="buttonMobile" v-on:click="ikea_lights(50)">50</button>
+      <button type = "button" class="buttonMobile" v-on:click="ikea_lights(50)">50</button><br>
       <button type = "button" class="buttonMobile" v-on:click="ikea_lights(75)">75</button>
       <button type = "button" class="buttonMobile" v-on:click="ikea_lights(100)">100</button><br>
       <!--<p>Skrivebords lampe</p>  - - - Temporarily disabled
@@ -41,6 +41,7 @@
   height: 50px;
   margin-right: 5px;
   margin-left: 5px;
+  margin-bottom: 5px;
   border-radius: 10px;
   background: #17c9e3;
   font-size : 20px;
