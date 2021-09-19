@@ -9,12 +9,12 @@
       <button type = "button" v-on:click="ikea_lights(50)">50</button>
       <button type = "button" v-on:click="ikea_lights(75)">75</button>
       <button type = "button" v-on:click="ikea_lights(100)">100</button><br>
-      <!--<p>Skrivebords lampe</p>  - - - Temporarily disabled
-      <button type = "button" v-on:click="relay('desk', 'On')">Tænd</button>
-      <button type = "button" v-on:click="relay('desk', 'Off')">Sluk</button><br>-->
+      <p>Skrivebords lampe</p>
+      <button type = "button" v-on:click="relay(0, 'desk', 'On')">Tænd</button>
+      <button type = "button" v-on:click="relay(0, 'desk', 'Off')">Sluk</button><br>
       <p>Lys kæde</p>
-      <button type = "button" v-on:click="relay('chain', 'On')">Tænd</button>
-      <button type = "button" v-on:click="relay('chain', 'Off')">Sluk</button><br>
+      <button type = "button" v-on:click="relay(1, 'chain', 'On')">Tænd</button>
+      <button type = "button" v-on:click="relay(1, 'chain', 'Off')">Sluk</button><br>
     </div>
     <div v-else>
       <p style="font-size : 25px;">Loftslamper</p>
@@ -25,12 +25,12 @@
       <button type = "button" class="buttonMobile" v-on:click="ikea_lights(50)">50</button><br>
       <button type = "button" class="buttonMobile" v-on:click="ikea_lights(75)">75</button>
       <button type = "button" class="buttonMobile" v-on:click="ikea_lights(100)">100</button><br>
-      <!--<p>Skrivebords lampe</p>  - - - Temporarily disabled
-      <button type = "button" v-on:click="relay('desk', 'On')">Tænd</button>
-      <button type = "button" v-on:click="relay('desk', 'Off')">Sluk</button><br>-->
+      <p style="font-size : 25px;">Skrivebords lampe</p>
+      <button type = "button" class="buttonMobile" v-on:click="relay(0, 'desk', 'On')">Tænd</button>
+      <button type = "button" class="buttonMobile" v-on:click="relay(0, 'desk', 'Off')">Sluk</button><br>
       <p style="font-size : 25px;">Lys kæde</p>
-      <button type = "button" class="buttonMobile" v-on:click="relay('chain', 'On')">Tænd</button>
-      <button type = "button" class="buttonMobile" v-on:click="relay('chain', 'Off')">Sluk</button><br>
+      <button type = "button" class="buttonMobile" v-on:click="relay(1, 'chain', 'On')">Tænd</button>
+      <button type = "button" class="buttonMobile" v-on:click="relay(1, 'chain', 'Off')">Sluk</button><br>
     </div>   
   </div>
 </template>
@@ -60,11 +60,11 @@ export default {
         this.fetchAPICall(0, "ikea_lights?value=" + value, "GET");
       }
     },
-    relay : function (dest, state){ 
-      this.fetchAPICall(1, "relay?state=" + String(state) + "&light_source=" + String(dest), "GET")
+    relay : function (dest, light, state){ 
+      this.fetchAPICall(dest, "relay?state=" + String(state) + "&light_source=" + String(light), "GET")
     },
     fetchAPICall : async function (board, route, method) {
-      let url = (board == 1 ? "http://192.168.0.141:3000/" + route : "http://192.168.0.108:3000/" + route)
+      let url = (board == 1 ? "http://192.168.0.141:3000/" + route : "http://192.168.0.101:3000/" + route)
       console.log(url);
       try {
         return await fetch(url, { method: method });
