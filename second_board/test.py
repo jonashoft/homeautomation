@@ -2,6 +2,7 @@
 import RPi.GPIO as GPIO
 
 GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BOARD)
 GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 def interrup_handler():
