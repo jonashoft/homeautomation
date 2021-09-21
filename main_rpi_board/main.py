@@ -53,8 +53,8 @@ def ikea_lights_handler():
 @app.route('/toggle_lights', methods=['GET'])
 def toggle_handler():
     global desk, chain, light
-    deskState = 1 if desk == 0 else 0
-    chainState = 1 if chain == 0 else 0
+    deskState, desk = 1,1 if desk == 0 else 0,0
+    chainState, chain = 1,1 if chain == 0 else 0,0
     GPIO.output(11, deskState)
     GPIO.output(13, chainState)
     lightState = 'On' if light == 0 else 'Off'
