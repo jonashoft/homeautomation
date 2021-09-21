@@ -19,10 +19,15 @@ def home():
 
 @app.route('/relay', methods=['GET'])
 def relay_handler():
+    global desk, chain
     state = request.args.get('state', type=str)
     lamp = request.args.get('light_source', type=str)
     light_state = {'On': 1, 'Off': 0}
     light_pin = {'desk': 16, 'chain': 18}
+    if light_pin[lamp] == 16:
+        desk = light_state[state]
+    elif light_pin[lamp] == 18:
+        chain = light_state[state]
     GPIO.output(light_pin[lamp], light_state[state])
     return jsonify(result=f'Turned {lamp} {state}'), 200
 
@@ -39,5 +44,5 @@ if __name__ == '__main__':
     GPIO.output(16, 1)
     GPIO.output(18, 1)
     desk, chain = 1, 1
-    GPIO.add_event_detect(22, GPIO.FALLING, callback=interrup_handler, bouncetime=1500)
+    GPIO.add_event_detect(22, GPIO.FALLING, callback=interrup_handler, bouncetime=1000)
     app.run(port=3000, host='0.0.0.0')
