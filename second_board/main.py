@@ -25,7 +25,7 @@ def relay_handler():
     GPIO.output(light_pin[lamp], light_state[state])
     return jsonify(result=f'Turned {lamp} {state}'), 200
 
-def interrup_handler():
+def interrup_handler(channel):
     global desk, chain
     deskState = 1 if desk == 0 else 0
     chainState = 1 if chain == 0 else 0
@@ -37,5 +37,5 @@ if __name__ == '__main__':
     GPIO.output(16, 1)
     GPIO.output(18, 1)
     desk, chain = 1, 1
-    GPIO.add_event_detect(22, GPIO.BOTH, callback=interrup_handler, bouncetime=100)
+    GPIO.add_event_detect(22, GPIO.FALLING, callback=interrup_handler, bouncetime=100)
     app.run(port=3000, host='0.0.0.0')
