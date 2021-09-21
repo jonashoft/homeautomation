@@ -4,6 +4,7 @@ import time
 import os
 
 deployedRasp = False
+desk, chain, light = 0, 0, 0
 
 if os.uname()[0] == 'Linux':
     deployedRasp = True
@@ -51,7 +52,13 @@ def ikea_lights_handler():
 
 @app.route('/toggle_lights', methods=['GET'])
 def toggle_handler():
-    
+    global desk, chain, light
+    deskState = 1 if desk == 0 else 0
+    chainState = 1 if chain == 0 else 0
+    GPIO.output(11, deskState)
+    GPIO.output(13, chainState)
+    lightState = 'On' if light == 0 else 'Off'
+    Lights(lightState)
     return "ok", 200
 
 def dimm(dimm_value):
@@ -83,6 +90,8 @@ if __name__ == '__main__':
     if deployedRasp:
         GPIO.output(11, 1)
         GPIO.output(13, 1)
+        desk, chain = 1, 1
     Lights(state='Off', delay=4)
     Lights(state='On', delay=2)
+    light = 1
     app.run(port=3000, host='0.0.0.0')
