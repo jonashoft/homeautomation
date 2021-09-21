@@ -26,10 +26,15 @@ def home():
 
 @app.route('/relay', methods=['GET'])
 def relay_handler():
+    global chain, desk
     state = request.args.get('state', type=str)
     lamp = request.args.get('light_source', type=str)
     light_state = {'On': 1, 'Off': 0}
     light_pin = {'desk': 11, 'chain': 13}
+    if lamp == 'desk':
+        desk = light_state[state]
+    if lamp == 'chain':
+        chain = light_state[state]
     if deployedRasp:
         GPIO.output(light_pin[lamp], light_state[state])
     return jsonify(result='Turned {lamp} {state}'), 200
@@ -60,7 +65,6 @@ def toggle_handler():
     desk, chain = deskState, chainState
     lightState = 'On' if light == 0 else 'Off'
     Lights(lightState)
-    light = 1 if lightState == 'On' else 0
     return f"{desk}, {chain}, {light}", 200
 
 def dimm(dimm_value):
@@ -80,7 +84,10 @@ def dimm(dimm_value):
         DIMM_VALUE = 100
 
 def Lights(state, delay=0.1): # Default delay represents a click on the button
+    global light
     light_pin = {'On': 37, 'Off': 31}
+    if delay == 0.1:
+        light = 1 if state == 'On' else 0
     if deployedRasp:
         GPIO.output(light_pin[state], 1)
         time.sleep(delay)

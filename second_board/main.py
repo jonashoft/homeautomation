@@ -1,14 +1,14 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import RPi.GPIO as GPIO
-import requests
+# import requests
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup([16, 18], GPIO.OUT)
 GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-desk, chain = 0, 0
+# desk, chain = 0, 0
 
 app = Flask(__name__)
 CORS(app, resources={r'/*': {'origins': '*'}})
@@ -24,25 +24,25 @@ def relay_handler():
     lamp = request.args.get('light_source', type=str)
     light_state = {'On': 1, 'Off': 0}
     light_pin = {'desk': 16, 'chain': 18}
-    if light_pin[lamp] == 16:
-        desk = light_state[state]
-    elif light_pin[lamp] == 18:
-        chain = light_state[state]
+    # if light_pin[lamp] == 16:
+    #     desk = light_state[state]
+    # elif light_pin[lamp] == 18:
+    #     chain = light_state[state]
     GPIO.output(light_pin[lamp], light_state[state])
     return jsonify(result=f'Turned {lamp} {state}'), 200
 
-def interrup_handler(channel):
-    global desk, chain
-    deskState = 1 if desk == 0 else 0
-    chainState = 1 if chain == 0 else 0
-    GPIO.output(16, deskState)
-    GPIO.output(18, chainState)
-    desk, chain = deskState, chainState
-    requests.get("http://192.168.0.101:3000/toggle_lights")
+# def interrup_handler(channel):
+#     global desk, chain
+#     deskState = 1 if desk == 0 else 0
+#     chainState = 1 if chain == 0 else 0
+#     GPIO.output(16, deskState)
+#     GPIO.output(18, chainState)
+#     desk, chain = deskState, chainState
+#     requests.get("http://192.168.0.101:3000/toggle_lights")
 
 if __name__ == '__main__':
     GPIO.output(16, 1)
     GPIO.output(18, 1)
-    desk, chain = 1, 1
-    GPIO.add_event_detect(22, GPIO.FALLING, callback=interrup_handler, bouncetime=1000)
+    # desk, chain = 1, 1
+    # GPIO.add_event_detect(22, GPIO.FALLING, callback=interrup_handler, bouncetime=1000)
     app.run(port=3000, host='0.0.0.0')
