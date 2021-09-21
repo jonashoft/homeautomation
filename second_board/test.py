@@ -6,7 +6,7 @@ GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-def interrup_handler():
+def interrup_handler(channel):
     print("button pressed")
 
 if __name__ == '__main__':
