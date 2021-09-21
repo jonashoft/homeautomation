@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import RPi.GPIO as GPIO
+import requests
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
@@ -32,7 +33,7 @@ def interrup_handler(channel):
     GPIO.output(16, deskState)
     GPIO.output(18, chainState)
     desk, chain = deskState, chainState
-    request.get("http://192.168.0.101:3000/toggle_lights")
+    requests.get("http://192.168.0.101:3000/toggle_lights")
 
 if __name__ == '__main__':
     GPIO.output(16, 1)
