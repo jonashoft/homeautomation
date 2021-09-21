@@ -61,7 +61,7 @@ def toggle_handler():
     lightState = 'On' if light == 0 else 'Off'
     Lights(lightState)
     light = 1 if lightState == 'On' else 0
-    return "ok", 200
+    return f"{desk}, {chain}, {light}", 200
 
 def dimm(dimm_value):
     global DIMM_VALUE
