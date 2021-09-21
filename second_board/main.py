@@ -39,5 +39,5 @@ if __name__ == '__main__':
     GPIO.output(16, 1)
     GPIO.output(18, 1)
     desk, chain = 1, 1
-    GPIO.add_event_detect(22, GPIO.FALLING, callback=interrup_handler, bouncetime=100)
+    GPIO.add_event_detect(22, GPIO.FALLING, callback=interrup_handler, bouncetime=1500)
     app.run(port=3000, host='0.0.0.0')
