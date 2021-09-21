@@ -31,7 +31,8 @@ def interrup_handler(channel):
     chainState = 1 if chain == 0 else 0
     GPIO.output(16, deskState)
     GPIO.output(18, chainState)
-    request.get("http://192.168.0.101/toggle_lights")
+    desk, chain = deskState, chainState
+    request.get("http://192.168.0.101:3000/toggle_lights")
 
 if __name__ == '__main__':
     GPIO.output(16, 1)
