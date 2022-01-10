@@ -28,7 +28,7 @@ def relay_handler():
 
 def interrup_handler(channel):
     global desk, chain
-    if channel == 24 or 26:
+    if channel == 24:
         deskState = 1 if desk == 0 else 0
         chainState = 1 if chain == 0 else 0
         GPIO.output(16, deskState)
@@ -36,6 +36,10 @@ def interrup_handler(channel):
         desk, chain = deskState, chainState
     elif channel == 22:
         requests.get("http://192.168.0.101:3000/toggle_lights")
+    elif channel == 26:
+        requests.get("http://192.168.0.101:3000/toggle_ikea")
+    elif channel == 32:
+        requests.get("http://192.168.0.101:3000/toggle_desk")
 
 if __name__ == '__main__':
     GPIO.output(16, 1)
@@ -43,4 +47,5 @@ if __name__ == '__main__':
     desk, chain = 1, 1
     GPIO.add_event_detect(22, GPIO.FALLING, callback=interrup_handler, bouncetime=1500)
     GPIO.add_event_detect(24, GPIO.FALLING, callback=interrup_handler, bouncetime=1500)
+    GPIO.add_event_detect(26, GPIO.FALLING, callback=interrup_handler, bouncetime=1500)
     app.run(port=3000, host='0.0.0.0')

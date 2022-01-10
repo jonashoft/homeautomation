@@ -63,6 +63,22 @@ def toggle_handler():
     light = 1 if lightState == 'On' else 0
     return f"{desk}, {chain}, {light}", 200
 
+@app.route('/toggle_ikea', methods=['GET'])
+def toggle_ikea():
+    global light
+    lightState = 'On' if light == 0 else 'Off'
+    Lights(lightState)
+    light = 1 if lightState == 'On' else 0
+
+@app.route('/toggle_desk', methods=['GET'])
+def toggle_desk():
+    global desk, chain
+    deskState = 1 if desk == 0 else 0
+    chainState = 1 if chain == 0 else 0
+    GPIO.output(11, deskState)
+    GPIO.output(13, chainState)
+    desk, chain = deskState, chainState
+
 def dimm(dimm_value):
     global DIMM_VALUE
     if dimm_value < DIMM_VALUE:
