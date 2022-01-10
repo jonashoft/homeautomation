@@ -6,7 +6,7 @@ import requests
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup([16, 18], GPIO.OUT)
-GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(22, GPIO.IN)
 
 desk, chain = 0, 0
 
