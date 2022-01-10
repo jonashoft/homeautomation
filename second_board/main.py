@@ -6,7 +6,7 @@ import requests
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup([16, 18], GPIO.OUT)
-GPIO.setup([22, 24, 26], GPIO.IN)
+GPIO.setup([22, 24, 26, 32], GPIO.IN)
 
 desk, chain = 0, 0
 
@@ -48,4 +48,5 @@ if __name__ == '__main__':
     GPIO.add_event_detect(22, GPIO.FALLING, callback=interrup_handler, bouncetime=1500)
     GPIO.add_event_detect(24, GPIO.FALLING, callback=interrup_handler, bouncetime=1500)
     GPIO.add_event_detect(26, GPIO.FALLING, callback=interrup_handler, bouncetime=1500)
+    GPIO.add_event_detect(32, GPIO.FALLING, callback=interrup_handler, bouncetime=1500)
     app.run(port=3000, host='0.0.0.0')
