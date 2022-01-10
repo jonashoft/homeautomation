@@ -6,7 +6,7 @@ import requests
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup([16, 18], GPIO.OUT)
-GPIO.setup([22, 24, 26, 28], GPIO.IN)
+GPIO.setup([22, 24, 26], GPIO.IN)
 
 desk, chain = 0, 0
 
@@ -28,26 +28,19 @@ def relay_handler():
 
 def interrup_handler(channel):
     global desk, chain
-    deskState = 1 if desk == 0 else 0
-    chainState = 1 if chain == 0 else 0
-    GPIO.output(16, deskState)
-    GPIO.output(18, chainState)
-    desk, chain = deskState, chainState
-    requests.get("http://192.168.0.101:3000/toggle_lights")
-
-def chainHandler(channel):
-    global desk, chain
-    deskState = 1 if desk == 0 else 0
-    chainState = 1 if chain == 0 else 0
-    GPIO.output(16, deskState)
-    GPIO.output(18, chainState)
+    if channel == 24 or 26:
+        deskState = 1 if desk == 0 else 0
+        chainState = 1 if chain == 0 else 0
+        GPIO.output(16, deskState)
+        GPIO.output(18, chainState)
+        desk, chain = deskState, chainState
+    elif channel == 22:
+        requests.get("http://192.168.0.101:3000/toggle_lights")
 
 if __name__ == '__main__':
     GPIO.output(16, 1)
     GPIO.output(18, 1)
     desk, chain = 1, 1
     GPIO.add_event_detect(22, GPIO.FALLING, callback=interrup_handler, bouncetime=1500)
-    GPIO.add_event_detect(24, GPIO.FALLING, callback=chainHandler, bouncetime=1500)
-    GPIO.add_event_detect(26, GPIO.FALLING, callback=chainHandler, bouncetime=1500)
-    GPIO.add_event_detect(28, GPIO.FALLING, callback=chainHandler, bouncetime=1500)
+    GPIO.add_event_detect(24, GPIO.FALLING, callback=interrup_handler, bouncetime=1500)
     app.run(port=3000, host='0.0.0.0')
