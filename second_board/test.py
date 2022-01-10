@@ -1,16 +1,18 @@
-
 import RPi.GPIO as GPIO
-import time
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+GPIO.setup([22, 24, 26], GPIO.IN)
 
 def interrup_handler(channel):
-    print("button pressed")
+    print(channel)
+    print(type(channel))
 
 if __name__ == '__main__':
-    GPIO.add_event_detect(22, GPIO.BOTH, callback=interrup_handler, bouncetime=100)
-    while True:
-        time.sleep(0.1)
-    
+    GPIO.add_event_detect(22, GPIO.FALLING, callback=interrup_handler, bouncetime=1500)
+    GPIO.add_event_detect(24, GPIO.FALLING, callback=interrup_handler, bouncetime=1500)
+    GPIO.add_event_detect(26, GPIO.FALLING, callback=interrup_handler, bouncetime=1500)
+    # GPIO.add_event_detect(28, GPIO.FALLING, callback=interrup_handler, bouncetime=1500)
+    while(1):
+        pass
