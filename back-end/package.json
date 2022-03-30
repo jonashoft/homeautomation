@@ -11,6 +11,7 @@
   "dependencies": {
     "express": "^4.17.3",
     "node-tradfri-client": "^3.1.0",
-    "ws": "^8.5.0"
+    "ws": "^8.5.0",
+    "onoff":"^6.0.3"
   }
 }

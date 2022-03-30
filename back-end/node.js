@@ -5,8 +5,8 @@ const http = require("http");
 const WebSocket = require("ws"); 
 var Gpio = require('onoff').Gpio;
 
-var socketOne = new Gpio(11, 'out');
-var socketTwo = new Gpio(13, 'out');
+var socketOne = new Gpio(17, 'out');
+var socketTwo = new Gpio(27, 'out');
 
 const app = express();
 const server = http.createServer(app);

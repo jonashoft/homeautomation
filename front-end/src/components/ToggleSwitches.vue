@@ -63,14 +63,27 @@
             let self = this; // this is required to access the correct scope inside the callback
             this.connection.onmessage = function(event) {
                 let received = JSON.parse(event.data);
-                console.log(typeof(received));
-                self.roomState = received.roomState;
-                self.hallState = received.hallState;
-                self.toiletState = received.toiletState;
-                self.hallValue = received.hallValue;
-                self.roomValue = received.roomValue;
-                self.toiletValue = received.toiletValue;
-                self.chainState = received.chainState;
+                if (received.hasOwnProperty('roomState')){
+                    self.roomState = received.roomState;
+                }
+                if (parsedData.hasOwnProperty('roomValue')){
+                    self.roomValue = received.roomValue;
+                }
+                if (parsedData.hasOwnProperty('toiletState')){
+                    self.toiletState = received.toiletState;
+                }
+                if (parsedData.hasOwnProperty('toiletValue')){
+                    self.toiletValue = received.toiletValue;
+                }
+                if (parsedData.hasOwnProperty('hallState')){
+                    self.hallState = received.hallState;
+                }
+                if (parsedData.hasOwnProperty('hallValue')){
+                    self.hallValue = received.hallValue;
+                }
+                if (received.hasOwnProperty('chainState')){
+                    self.chainState = received.chainState;
+                }
             }
 
             this.connection.onopen = function(event) {
