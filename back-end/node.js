@@ -38,10 +38,10 @@ websocketServer.on("connection", (webSocketClient) => {
             console.log("chain: %s", state)
             console.log("socket1: %s", socketOne.readSync());
             console.log("socket2: %s", socketTwo.readSync());
-            if (socketOne.readSync() != state){
+            if (Boolean(socketOne.readSync()) != state){
                 socketOne.writeSync(state)
             }
-            if (socketTwo.readSync() != state){
+            if (Boolean(socketTwo.readSync()) != state){
                 socketTwo.writeSync(state)
             }
         }
