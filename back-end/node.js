@@ -34,7 +34,7 @@ websocketServer.on("connection", (webSocketClient) => {
         //     console.log("hall: %s", parsedData['hallValue'])
         // }
         if (parsedData.hasOwnProperty('chainState')){
-            let state = parsedData['chainState'];
+            let state = + parsedData['chainState'];
             console.log("type of state: %s", typeof(state))
             console.log("chain: %s", state)
             console.log("socket1: %s", socketOne.readSync());
