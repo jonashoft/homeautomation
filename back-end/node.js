@@ -13,6 +13,13 @@ const server = http.createServer(app);
 const websocketServer = new WebSocket.Server({ server });
 
 websocketServer.on("connection", (webSocketClient) => {
+    let socketOneState = Boolean(socketOne.readSync());
+
+        let dataObj = {
+            chainState: socketOneState
+        }
+        webSocketClient.send(JSON.stringify(dataObj));
+
     webSocketClient.on('message', function message(data) {
         let parsedData = JSON.parse(data);
         // if (parsedData.hasOwnProperty('roomState')){
@@ -35,18 +42,14 @@ websocketServer.on("connection", (webSocketClient) => {
         // }
         if (parsedData.hasOwnProperty('chainState')){
             let state = + parsedData['chainState'];
-            
+
             if (socketOne.readSync() != state){
                 socketOne.writeSync(state)
-            }
-            if (socketTwo.readSync() != state){
-                socketTwo.writeSync(state)
             }
         }
       });
     setInterval(() => {
         let socketOneState = Boolean(socketOne.readSync());
-        let socketTwoState = Boolean(socketTwo.readSync());
 
         let dataObj = {
             chainState: socketOneState
