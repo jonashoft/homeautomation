@@ -39,6 +39,7 @@ websocketServer.on("connection", (webSocketClient) => {
             console.log("socket1: %s", socketOne.readSync());
             console.log("socket2: %s", socketTwo.readSync());
             if (Boolean(socketOne.readSync()) != state){
+                console.log("here")
                 socketOne.writeSync(state)
             }
             if (Boolean(socketTwo.readSync()) != state){
