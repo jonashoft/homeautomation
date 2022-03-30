@@ -46,11 +46,11 @@ websocketServer.on("connection", (webSocketClient) => {
         }
       });
     setInterval(() => {
-        let socketOne = Boolean(socketOne.readSync());
-        let socketTwo = Boolean(socketTwo.readSync());
-        let socketOne = false;
+        let socketOneState = Boolean(socketOne.readSync());
+        let socketTwoState = Boolean(socketTwo.readSync());
+
         let dataObj = {
-            chainState: socketOne
+            chainState: socketOneState
         }
         webSocketClient.send(JSON.stringify(dataObj));
     }, 5000);
