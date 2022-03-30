@@ -5,8 +5,8 @@ const http = require("http");
 const WebSocket = require("ws"); 
 var Gpio = require('onoff').Gpio;
 
-var socketOne = new Gpio(17, 'out');
-var socketTwo = new Gpio(27, 'out');
+var socketOne = new Gpio(23, 'out');
+var socketTwo = new Gpio(24, 'out');
 
 const app = express();
 const server = http.createServer(app);
@@ -34,9 +34,8 @@ websocketServer.on("connection", (webSocketClient) => {
         //     console.log("hall: %s", parsedData['hallValue'])
         // }
         if (parsedData.hasOwnProperty('chainState')){
-            console.log("chain: %s", state)
-
             let state = parsedData['chainState'];
+            console.log("chain: %s", state)
             
             if (socketOne.readSync() != state){
                 socketOne.writeSync(state)
@@ -49,13 +48,8 @@ websocketServer.on("connection", (webSocketClient) => {
     setInterval(() => {
         let socketOne = Boolean(socketOne.readSync());
         let socketTwo = Boolean(socketTwo.readSync());
+        let socketOne = false;
         let dataObj = {
-        //   roomState: false,
-        //   roomValue: 50,
-        //   toiletState: false,
-        //   toiletValue: 14,
-        //   hallState: true,
-        //   hallValue: 89,
             chainState: socketOne
         }
         webSocketClient.send(JSON.stringify(dataObj));
