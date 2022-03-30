@@ -35,14 +35,11 @@ websocketServer.on("connection", (webSocketClient) => {
         // }
         if (parsedData.hasOwnProperty('chainState')){
             let state = + parsedData['chainState'];
-            console.log("type of state: %s", typeof(state))
-            console.log("chain: %s", state)
-            console.log("socket1: %s", socketOne.readSync());
-            console.log("socket2: %s", socketTwo.readSync());
-            if (Boolean(socketOne.readSync()) != state){
-                socketOne.writeSync(1)
+            console.log("type of state: %s", typeof(socketOne.readSync()))
+            if (socketOne.readSync() != state){
+                socketOne.writeSync(state)
             }
-            if (Boolean(socketTwo.readSync()) != state){
+            if (socketTwo.readSync() != state){
                 socketTwo.writeSync(state)
             }
         }
