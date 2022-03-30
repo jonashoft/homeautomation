@@ -63,25 +63,26 @@
             let self = this; // this is required to access the correct scope inside the callback
             this.connection.onmessage = function(event) {
                 let received = JSON.parse(event.data);
-                if (received.hasOwnProperty('roomState')){
+                console.log(received)
+                if ({}.propertyIsEnumerable.call(received, 'roomState')){
                     self.roomState = received.roomState;
                 }
-                if (parsedData.hasOwnProperty('roomValue')){
+                if ({}.propertyIsEnumerable.call(received, 'roomValue')){
                     self.roomValue = received.roomValue;
                 }
-                if (parsedData.hasOwnProperty('toiletState')){
+                if ({}.propertyIsEnumerable.call(received, 'toiletState')){
                     self.toiletState = received.toiletState;
                 }
-                if (parsedData.hasOwnProperty('toiletValue')){
+                if ({}.propertyIsEnumerable.call(received, 'toiletValue')){
                     self.toiletValue = received.toiletValue;
                 }
-                if (parsedData.hasOwnProperty('hallState')){
+                if ({}.propertyIsEnumerable.call(received, 'hallState')){
                     self.hallState = received.hallState;
                 }
-                if (parsedData.hasOwnProperty('hallValue')){
+                if ({}.propertyIsEnumerable.call(received, 'hallValue')){
                     self.hallValue = received.hallValue;
                 }
-                if (received.hasOwnProperty('chainState')){
+                if ({}.propertyIsEnumerable.call(received, 'chainState')){
                     self.chainState = received.chainState;
                 }
             }
